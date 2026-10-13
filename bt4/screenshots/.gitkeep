@@ -1,0 +1,3 @@
+# Thư mục lưu ảnh chụp màn hình nộp bài cho Bài 4
+# 1. 01_ssh_deploy_log.png: Ảnh chụp màn hình log kết quả bước SSH Deploy trên tab Actions
+# 2. 02_actuator_health.png: Ảnh chụp màn hình trình duyệt truy cập http://<VPS_IP>:8080/actuator/health trả về 200 OK

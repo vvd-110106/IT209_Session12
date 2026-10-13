@@ -1,0 +1,3 @@
+# Thư mục lưu ảnh chụp màn hình nộp bài cho Bài 3
+# 1. 01_waiting_for_approval.png: Cửa sổ popup "Review deployments" chờ Approve môi trường production
+# 2. 02_deploy_success.png: Màn hình tích xanh sau khi đã Approve and deploy

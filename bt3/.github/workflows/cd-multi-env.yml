@@ -1,0 +1,79 @@
+name: Multi-Environment CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
+
+jobs:
+  # ========================================================
+  # Job 1: Triển khai lên môi trường Staging
+  # Kích hoạt tự động khi push vào nhánh 'develop'
+  # ========================================================
+  deploy-staging:
+    name: Deploy to Staging
+    if: github.ref_name == 'develop'
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+      url: https://staging.example.com
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Deployment Environment
+        run: |
+          echo "=========================================="
+          echo "🚀 Bắt đầu triển khai lên môi trường STAGING"
+          echo "Repository: ${{ github.repository }}"
+          echo "Nhánh: ${{ github.ref_name }}"
+          echo "Commit SHA: ${{ github.sha }}"
+          echo "Môi trường: staging"
+          echo "Target URL: https://staging.example.com"
+          echo "=========================================="
+
+      - name: Execute Deployment to Staging
+        run: |
+          echo "📦 Đang đóng gói và triển khai ứng dụng lên Staging..."
+          sleep 5
+          echo "🧪 Đang chạy kiểm thử tích hợp (Smoke test) trên Staging..."
+          sleep 3
+          echo "✅ Triển khai STAGING thành công! Sẵn sàng kiểm thử nội bộ."
+
+  # ========================================================
+  # Job 2: Triển khai lên môi trường Production
+  # Kích hoạt khi push vào nhánh 'main'
+  # Cần phê duyệt thủ công thông qua GitHub Environments (Required Reviewers)
+  # ========================================================
+  deploy-prod:
+    name: Deploy to Production
+    if: github.ref_name == 'main'
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://api.prod.example.com
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Deployment Environment
+        run: |
+          echo "=========================================="
+          echo "🌟 Bắt đầu triển khai lên môi trường PRODUCTION"
+          echo "Repository: ${{ github.repository }}"
+          echo "Nhánh: ${{ github.ref_name }}"
+          echo "Commit SHA: ${{ github.sha }}"
+          echo "Môi trường: production"
+          echo "Target URL: https://api.prod.example.com"
+          echo "=========================================="
+
+      - name: Execute Deployment to Production
+        run: |
+          echo "🔒 Đã vượt qua bước phê duyệt thủ công (Manual Approval)!"
+          echo "📦 Đang triển khai phiên bản chính thức lên máy chủ Production..."
+          sleep 5
+          echo "🩺 Kiểm tra sức khỏe hệ thống (Health Check) tại https://api.prod.example.com..."
+          sleep 3
+          echo "🎉 Triển khai PRODUCTION thành công rực rỡ!"
